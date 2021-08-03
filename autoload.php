@@ -1,14 +1,14 @@
 <?php
 /**
  * AUTOLOAD DE CLASSES PARA O PACOTE 'Classes'
- * @param $classe
+ * @param $class
  */
-function autoload($classe)
+function autoload($class)
 {
-    $diretorioBase = DIR_APP . DS;
-    $classe = $diretorioBase . 'App' . DS . str_replace('\\', DS, $classe) . '.php';
-    if (file_exists($classe) && !is_dir($classe)) {
-        include $classe;
+    $directoryBase = DIR_APP . DS;
+    $class = $directoryBase . 'App' . DS . str_replace('\\', DS, $class) . '.php';
+    if (file_exists($class) && !is_dir($class)) {
+        include $class;
     }
 }
 
