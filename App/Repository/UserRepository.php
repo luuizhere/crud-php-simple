@@ -41,5 +41,15 @@ class UserRepository
         return $stmt->rowCount();
     }
 
+    public function getUsersByCity($cityId)
+    {
+        echo "aqui"; exit;
+        $consulta = 'SELECT count(*) FROM ' . self::TABLE . '';
+        $stmt = $this->MySQL->getDb()->prepare($consulta);
+        // $stmt->bindParam(':name', $name);
+        $stmt->execute();
+        return $stmt->rowCount();
+    }
+
 
 }   

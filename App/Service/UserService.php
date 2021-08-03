@@ -11,7 +11,7 @@ class UserService
     private array $datas;
 
     public const TABLE = 'users';
-    public const RECURSOS_GET = ['list'];
+    public const RECURSOS_GET = ['list','userbycity','userbystate'];
     public const RECURSOS_DELETE = ['delete'];
     public const RECURSOS_POST = ['create'];
 
@@ -133,6 +133,7 @@ class UserService
         throw new InvalidArgumentException(ConstantsGenericsUtil::MSG_ERRO_LOGIN_SENHA_OBRIGATORIO);
 
     }
+
 
 
     

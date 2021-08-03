@@ -21,6 +21,7 @@ class RequestValidator
     const STATE = 'STATE';
     const CITY = 'CITY';
     const ADDRESS = 'ADDRESS';
+    const USERTESTE = 'USERTESTE';
 
     public function __construct($request)
     {
