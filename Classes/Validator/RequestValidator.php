@@ -10,7 +10,7 @@ use Util\JsonUtil;
 class RequestValidator
 {
     private $request;
-    private $dadosRequest;
+    private $dadosRequest = [];
 
     const GET = 'GET';
     const DELETE = 'DELETE';
@@ -77,6 +77,26 @@ class RequestValidator
                 case self::USER :
                     $UserService = new UserService($this->request);
                     $retorno = $UserService->validarDelete();
+                    break;
+                default:
+                    throw new InvalidArgumentException(ConstantesGenericasUtil::MSG_ERRO_RECURSO_INEXISTENTE);
+           }
+        }
+        return $retorno;
+    }
+
+    private function post()
+    {
+        $retorno  = utf8_encode(ConstantesGenericasUtil::MSG_ERRO_TIPO_ROTA);
+
+        if(in_array($this->request['rota'], ConstantesGenericasUtil::TIPO_POST,true))
+        {
+           switch($this->request['rota'])
+           {
+                case self::USER :
+                    $UserService = new UserService($this->request);
+                    $UserService->setDataRequest($this->dadosRequest);
+                    $retorno = $UserService->validarPost();
                     break;
                 default:
                     throw new InvalidArgumentException(ConstantesGenericasUtil::MSG_ERRO_RECURSO_INEXISTENTE);
