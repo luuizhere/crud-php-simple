@@ -8,53 +8,53 @@ use Util\ConstantesGenericasUtil;
 
 class UserService
 {
-    private array $dados;
+    private array $datas;
 
     public const TABLE = 'users';
-    public const RECURSOS_GET = ['listar'];
+    public const RECURSOS_GET = ['list'];
     public const RECURSOS_DELETE = ['delete'];
-    public const RECURSOS_POST = ['cadastrar'];
+    public const RECURSOS_POST = ['create'];
 
     private object $UserRepository;
     private $dataRequest = [];
 
-    public function __construct($dados = [])
+    public function __construct($datas = [])
     {
-        $this->dados = $dados;
+        $this->datas = $datas;
         $this->UserRepository = new UserRepository();
     }
 
-    public function validarGet()
+    public function validateGet()
     {
-        $retorno = null;
-        $recurso = $this->dados['recurso'];
+        $return = null;
+        $resource = $this->datas['resource'];
 
-        if(in_array($recurso , self::RECURSOS_GET,true))
+        if(in_array($resource , self::RECURSOS_GET,true))
         {
-            $retorno = $this->dados['id'] > 0 ? $this->getOneByKey() : $this->$recurso();
+            $return = $this->datas['id'] > 0 ? $this->getOneByKey() : $this->$resource();
         }else
         {
             throw new InvalidArgumentException(ConstantesGenericasUtil::MSG_ERRO_RECURSO_INEXISTENTE);
         }
 
-        if($retorno === null)
+        if($return === null)
         {
             throw new InvalidArgumentException(ConstantesGenericasUtil::MSG_ERRO_GENERICO);
         }
 
-        return $retorno;
+        return $return;
     }
 
-    public function validarDelete()
+    public function validateDelete()
     {
-        $retorno = null;
-        $recurso = $this->dados['recurso'];
-        if(in_array($recurso , self::RECURSOS_DELETE,true))
+        $return = null;
+        $resource = $this->datas['resource'];
+        if(in_array($resource , self::RECURSOS_DELETE,true))
         {
-            // $retorno = $this->dados['id'] > 0 ? $this->getOneByKey() : $this->$recurso();
-            if($this->dados['id'] > 0 )
+            // $return = $this->datas['id'] > 0 ? $this->getOneByKey() : $this->$resource();
+            if($this->datas['id'] > 0 )
             {
-                $retorno = $this->$recurso();
+                $return = $this->$resource();
             }else
             {
                 throw new InvalidArgumentException(ConstantesGenericasUtil::MSG_ERRO_ID_OBRIGATORIO);
@@ -64,32 +64,32 @@ class UserService
             throw new InvalidArgumentException(ConstantesGenericasUtil::MSG_ERRO_RECURSO_INEXISTENTE);
         }
 
-        if($retorno === null)
+        if($return === null)
         {
             throw new InvalidArgumentException(ConstantesGenericasUtil::MSG_ERRO_GENERICO);
         }
 
-        return $retorno;
+        return $return;
     }
 
-    public function validarPost()
+    public function validatePost()
     {
-        $retorno = null;
-        $recurso = $this->dados['recurso'];
-        if(in_array($recurso , self::RECURSOS_POST,true))
+        $return = null;
+        $resource = $this->datas['resource'];
+        if(in_array($resource , self::RECURSOS_POST,true))
         {
-           $retorno = $this->$recurso();
+           $return = $this->$resource();
         }else
         {
             throw new InvalidArgumentException(ConstantesGenericasUtil::MSG_ERRO_RECURSO_INEXISTENTE);
         }
 
-        if($retorno === null)
+        if($return === null)
         {
             throw new InvalidArgumentException(ConstantesGenericasUtil::MSG_ERRO_GENERICO);
         }
 
-        return $retorno;
+        return $return;
     }
     public function setDataRequest($dataRequest)
     {
@@ -98,20 +98,20 @@ class UserService
 
     private function getOneByKey()
     {
-        return $this->UserRepository->getMySQL()->getOneByKey(self::TABLE,$this->dados['id']);
+        return $this->UserRepository->getMySQL()->getOneByKey(self::TABLE,$this->datas['id']);
     }
 
-    private function listar()
+    private function list()
     {
         return $this->UserRepository->getMySQL()->getAll(self::TABLE);
     }
 
     private function delete()
     {
-        return $this->UserRepository->getMySQL()->delete(self::TABLE,$this->dados['id']);
+        return $this->UserRepository->getMySQL()->delete(self::TABLE,$this->datas['id']);
     }
 
-    private function cadastrar()
+    private function create()
     {
         [$name, $address] = [$this->dataRequest['name'], $this->dataRequest['address_id']];
 

@@ -7,7 +7,7 @@ use JsonException;
 
 class JsonUtil
 {
-    public static function tratarCorpoRequisicaoJson()
+    public static function bodyRequestJson()
     {
 
         try{

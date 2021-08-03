@@ -10,7 +10,7 @@ use Util\JsonUtil;
 class RequestValidator
 {
     private $request;
-    private $dadosRequest = [];
+    private $dataRequest = [];
 
     const GET = 'GET';
     const DELETE = 'DELETE';
@@ -23,85 +23,84 @@ class RequestValidator
 
     public function processarRequest()
     {
-        $retorno = utf8_encode(ConstantesGenericasUtil::MSG_ERRO_TIPO_ROTA);
+        $return = utf8_encode(ConstantesGenericasUtil::MSG_ERRO_TIPO_ROTA);
 
-        $this->request['metodo'] == 'POST';
         
-        if(in_array($this->request['metodo'], ConstantesGenericasUtil::TIPO_REQUEST,true))
+        if(in_array($this->request['method'], ConstantesGenericasUtil::TIPO_REQUEST,true))
         {
-            $retorno = $this->direcionarRequest();
+            $return = $this->directRequest();
         }
-        return $retorno;
+        return $return;
     }
 
-    private function direcionarRequest()
+    private function directRequest()
     {
-        if($this->request['metodo'] !== self::GET && $this->request['metodo'] !== self::DELETE )
+        if($this->request['method'] !== self::GET && $this->request['method'] !== self::DELETE )
         {
-            $this->dadosRequest = JsonUtil::tratarCorpoRequisicaoJson();
+            $this->dataRequest = JsonUtil::bodyRequestJson();
         }
 
-        $metodo = $this->request['metodo'];
+        $method = $this->request['method'];
 
-        return $this->$metodo();
+        return $this->$method();
     }
 
     private function get()
     {
-        $retorno  = utf8_encode(ConstantesGenericasUtil::MSG_ERRO_TIPO_ROTA);
+        $return  = utf8_encode(ConstantesGenericasUtil::MSG_ERRO_TIPO_ROTA);
 
-        if(in_array($this->request['rota'], ConstantesGenericasUtil::TIPO_GET,true))
+        if(in_array($this->request['route'], ConstantesGenericasUtil::TIPO_GET,true))
         {
-           switch($this->request['rota'])
+           switch($this->request['route'])
            {
                 case self::USER :
                     $UserService = new UserService($this->request);
-                    $retorno = $UserService->validarGet();
+                    $return = $UserService->validateGet();
                     break;
                 default:
                     throw new InvalidArgumentException(ConstantesGenericasUtil::MSG_ERRO_RECURSO_INEXISTENTE);
            }
         }
-        return $retorno;
+        return $return;
     }
 
     
     private function delete()
     {
-        $retorno  = utf8_encode(ConstantesGenericasUtil::MSG_ERRO_TIPO_ROTA);
+        $return  = utf8_encode(ConstantesGenericasUtil::MSG_ERRO_TIPO_ROTA);
 
-        if(in_array($this->request['rota'], ConstantesGenericasUtil::TIPO_DELETE,true))
+        if(in_array($this->request['route'], ConstantesGenericasUtil::TIPO_DELETE,true))
         {
-           switch($this->request['rota'])
+           switch($this->request['route'])
            {
                 case self::USER :
                     $UserService = new UserService($this->request);
-                    $retorno = $UserService->validarDelete();
+                    $return = $UserService->validateDelete();
                     break;
                 default:
                     throw new InvalidArgumentException(ConstantesGenericasUtil::MSG_ERRO_RECURSO_INEXISTENTE);
            }
         }
-        return $retorno;
+        return $return;
     }
 
     private function post()
     {
-        $retorno  = utf8_encode(ConstantesGenericasUtil::MSG_ERRO_TIPO_ROTA);
+        $return  = utf8_encode(ConstantesGenericasUtil::MSG_ERRO_TIPO_ROTA);
 
-        if(in_array($this->request['rota'], ConstantesGenericasUtil::TIPO_POST,true))
+        if(in_array($this->request['route'], ConstantesGenericasUtil::TIPO_POST,true))
         {
-           switch($this->request['rota'])
+           switch($this->request['route'])
            {
                 case self::USER :
                     $UserService = new UserService($this->request);
-                    $UserService->setDataRequest($this->dadosRequest);
-                    $retorno = $UserService->validarPost();
+                    $UserService->setDataRequest($this->dataRequest);
+                    $return = $UserService->validatePost();
                     break;
                 default:
                     throw new InvalidArgumentException(ConstantesGenericasUtil::MSG_ERRO_RECURSO_INEXISTENTE);
            }
         }
-        return $retorno;
+        return $return;
     }
 }

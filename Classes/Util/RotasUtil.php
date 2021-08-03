@@ -8,10 +8,10 @@ class RotasUtil
     {
         $urls = self::getUrls();
         $request = [];
-        $request['rota'] = strtoupper($urls[0]);
-        $request['recurso'] = $urls[1] ?? null;
+        $request['route'] = strtoupper($urls[0]);
+        $request['resource'] = $urls[1] ?? null;
         $request['id'] = $urls[2] ?? null;
-        $request['metodo'] = $_SERVER['REQUEST_METHOD'];
+        $request['method'] = $_SERVER['REQUEST_METHOD'];
         return $request;
     }
 
