@@ -1,5 +1,6 @@
 <?php
 
+use Util\JsonUtil;
 use Util\RotasUtil;
 use Validator\RequestValidator;
 
@@ -9,7 +10,9 @@ try{
     $req = new RequestValidator(RotasUtil::getRotas());
     $retorno = $req->processarRequest();
 
-    var_dump($retorno);
+    $JsonUtil = new JsonUtil();
+    $JsonUtil->processArray($retorno);
+
 }catch(Exception $e)
 {
     echo $e->getMessage();

@@ -44,7 +44,7 @@ class UserService
 
     private function getOneByKey()
     {
-
+        return $this->UserRepository->getMySQL()->getOneByKey(self::TABLE,$this->dados['id']);
     }
 
     private function listar()

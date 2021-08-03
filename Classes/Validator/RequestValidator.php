@@ -2,6 +2,7 @@
 
 namespace Validator;
 
+use InvalidArgumentException;
 use Service\UserService;
 use Util\ConstantesGenericasUtil;
 use Util\JsonUtil;
@@ -30,7 +31,6 @@ class RequestValidator
         {
             $retorno = $this->direcionarRequest();
         }
-        var_dump($retorno); exit;
         return $retorno;
     }
 
@@ -57,10 +57,11 @@ class RequestValidator
                 case self::USER :
                     $UserService = new UserService($this->request);
                     $retorno = $UserService->validarGet();
-                    echo "<pre>";
-                    var_dump($retorno);exit;
-
+                    break;
+                default:
+                    throw new InvalidArgumentException(ConstantesGenericasUtil::MSG_ERRO_RECURSO_INEXISTENTE);
            }
         }
+        return $retorno;
     }
 }

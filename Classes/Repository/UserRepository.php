@@ -20,4 +20,4 @@ class UserRepository
     {
         return $this->MySQL;
     }
-}
+}   
