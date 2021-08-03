@@ -3,25 +3,25 @@
 namespace Service;
 
 use InvalidArgumentException;
-use Repository\UserRepository;
+use Repository\AddressRepository;
 use Util\ConstantsGenericsUtil;
 
-class UserService
+class AddressService
 {
     private array $datas;
 
-    public const TABLE = 'users';
+    public const TABLE = 'addresses';
     public const RECURSOS_GET = ['list'];
     public const RECURSOS_DELETE = ['delete'];
     public const RECURSOS_POST = ['create'];
 
-    private object $UserRepository;
+    private object $AddressRepository;
     private $dataRequest = [];
 
     public function __construct($datas = [])
     {
         $this->datas = $datas;
-        $this->UserRepository = new UserRepository();
+        $this->AddressRepository = new AddressRepository();
     }
 
     public function validateGet()
@@ -98,42 +98,41 @@ class UserService
 
     private function getOneByKey()
     {
-        return $this->UserRepository->getMySQL()->getOneByKey(self::TABLE,$this->datas['id']);
+        return $this->AddressRepository->getMySQL()->getOneByKey(self::TABLE,$this->datas['id']);
     }
 
     private function list()
     {
-        return $this->UserRepository->getMySQL()->getAll(self::TABLE);
+        return $this->AddressRepository->getMySQL()->getAll(self::TABLE);
     }
 
     private function delete()
     {
-        return $this->UserRepository->getMySQL()->delete(self::TABLE,$this->datas['id']);
+        return $this->AddressRepository->getMySQL()->delete(self::TABLE,$this->datas['id']);
     }
 
     private function create()
     {
-        [$name, $address] = [$this->dataRequest['name'], $this->dataRequest['address_id']];
+        [$name, $city] = [$this->dataRequest['name'], $this->dataRequest['city_id']];
 
-        if ($name && $address) {
-            if ($this->UserRepository->getRegisterByName($name) > 0) {
+        if ($name && $city) {
+            if ($this->AddressRepository->getRegisterByName($name) > 0) {
                 throw new InvalidArgumentException(ConstantsGenericsUtil::MSG_ERRO_LOGIN_EXISTENTE);
             }
 
-            if ($this->UserRepository->insertUser($name, $address) > 0) {
-                $id = $this->UserRepository->getMySQL()->getDb()->lastInsertId();
-                $this->UserRepository->getMySQL()->getDb()->commit();
+            if ($this->AddressRepository->insertName($name,$city) > 0) {
+                $id = $this->AddressRepository->getMySQL()->getDb()->lastInsertId();
+                $this->AddressRepository->getMySQL()->getDb()->commit();
                 return ['ID' => $id];
             }
 
-            $this->UserRepository->getMySQL()->getDb()->rollBack();
+            $this->AddressRepository->getMySQL()->getDb()->rollBack();
 
             throw new InvalidArgumentException(ConstantsGenericsUtil::MSG_ERRO_GENERICO);
         }
         throw new InvalidArgumentException(ConstantsGenericsUtil::MSG_ERRO_LOGIN_SENHA_OBRIGATORIO);
 
     }
-
 
     
 

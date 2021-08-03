@@ -3,25 +3,25 @@
 namespace Service;
 
 use InvalidArgumentException;
-use Repository\UserRepository;
+use Repository\StateRepository;
 use Util\ConstantsGenericsUtil;
 
-class UserService
+class StateService
 {
     private array $datas;
 
-    public const TABLE = 'users';
+    public const TABLE = 'states';
     public const RECURSOS_GET = ['list'];
     public const RECURSOS_DELETE = ['delete'];
     public const RECURSOS_POST = ['create'];
 
-    private object $UserRepository;
+    private object $StateRepository;
     private $dataRequest = [];
 
     public function __construct($datas = [])
     {
         $this->datas = $datas;
-        $this->UserRepository = new UserRepository();
+        $this->StateRepository = new StateRepository();
     }
 
     public function validateGet()
@@ -98,17 +98,17 @@ class UserService
 
     private function getOneByKey()
     {
-        return $this->UserRepository->getMySQL()->getOneByKey(self::TABLE,$this->datas['id']);
+        return $this->StateRepository->getMySQL()->getOneByKey(self::TABLE,$this->datas['id']);
     }
 
     private function list()
     {
-        return $this->UserRepository->getMySQL()->getAll(self::TABLE);
+        return $this->StateRepository->getMySQL()->getAll(self::TABLE);
     }
 
     private function delete()
     {
-        return $this->UserRepository->getMySQL()->delete(self::TABLE,$this->datas['id']);
+        return $this->StateRepository->getMySQL()->delete(self::TABLE,$this->datas['id']);
     }
 
     private function create()
@@ -116,24 +116,23 @@ class UserService
         [$name, $address] = [$this->dataRequest['name'], $this->dataRequest['address_id']];
 
         if ($name && $address) {
-            if ($this->UserRepository->getRegisterByName($name) > 0) {
+            if ($this->StateRepository->getRegisterByName($name) > 0) {
                 throw new InvalidArgumentException(ConstantsGenericsUtil::MSG_ERRO_LOGIN_EXISTENTE);
             }
 
-            if ($this->UserRepository->insertUser($name, $address) > 0) {
-                $id = $this->UserRepository->getMySQL()->getDb()->lastInsertId();
-                $this->UserRepository->getMySQL()->getDb()->commit();
+            if ($this->StateRepository->insertName($name) > 0) {
+                $id = $this->StateRepository->getMySQL()->getDb()->lastInsertId();
+                $this->StateRepository->getMySQL()->getDb()->commit();
                 return ['ID' => $id];
             }
 
-            $this->UserRepository->getMySQL()->getDb()->rollBack();
+            $this->StateRepository->getMySQL()->getDb()->rollBack();
 
             throw new InvalidArgumentException(ConstantsGenericsUtil::MSG_ERRO_GENERICO);
         }
         throw new InvalidArgumentException(ConstantsGenericsUtil::MSG_ERRO_LOGIN_SENHA_OBRIGATORIO);
 
     }
-
 
     
 

@@ -6,10 +6,10 @@ abstract class ConstantsGenericsUtil
 {
     /* REQUESTS */
     public const TIPO_REQUEST = ['GET', 'POST', 'DELETE', 'PUT'];
-    public const TIPO_GET = ['USER'];
-    public const TIPO_POST = ['USER'];
-    public const TIPO_DELETE = ['USER'];
-    public const TIPO_PUT = ['USER'];
+    public const TIPO_GET = ['USER','STATE','CITY','ADDRESS'];
+    public const TIPO_POST = ['USER','STATE','CITY','ADDRESS'];
+    public const TIPO_DELETE = ['USER','STATE','CITY','ADDRESS'];
+    public const TIPO_PUT = ['USER','STATE','CITY','ADDRESS'];
 
     /* ERROS */
     public const MSG_ERRO_TIPO_ROTA = 'Rota não permitida!';
