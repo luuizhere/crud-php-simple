@@ -4,7 +4,7 @@ namespace Validator;
 
 use InvalidArgumentException;
 use Service\UserService;
-use Util\ConstantesGenericasUtil;
+use Util\ConstantsGenericsUtil;
 use Util\JsonUtil;
 
 class RequestValidator
@@ -21,12 +21,12 @@ class RequestValidator
         $this->request = $request;
     }
 
-    public function processarRequest()
+    public function processRequest()
     {
-        $return = utf8_encode(ConstantesGenericasUtil::MSG_ERRO_TIPO_ROTA);
+        $return = utf8_encode(ConstantsGenericsUtil::MSG_ERRO_TIPO_ROTA);
 
         
-        if(in_array($this->request['method'], ConstantesGenericasUtil::TIPO_REQUEST,true))
+        if(in_array($this->request['method'], ConstantsGenericsUtil::TIPO_REQUEST,true))
         {
             $return = $this->directRequest();
         }
@@ -47,9 +47,9 @@ class RequestValidator
 
     private function get()
     {
-        $return  = utf8_encode(ConstantesGenericasUtil::MSG_ERRO_TIPO_ROTA);
+        $return  = utf8_encode(ConstantsGenericsUtil::MSG_ERRO_TIPO_ROTA);
 
-        if(in_array($this->request['route'], ConstantesGenericasUtil::TIPO_GET,true))
+        if(in_array($this->request['route'], ConstantsGenericsUtil::TIPO_GET,true))
         {
            switch($this->request['route'])
            {
@@ -58,7 +58,7 @@ class RequestValidator
                     $return = $UserService->validateGet();
                     break;
                 default:
-                    throw new InvalidArgumentException(ConstantesGenericasUtil::MSG_ERRO_RECURSO_INEXISTENTE);
+                    throw new InvalidArgumentException(ConstantsGenericsUtil::MSG_ERRO_RECURSO_INEXISTENTE);
            }
         }
         return $return;
@@ -67,9 +67,9 @@ class RequestValidator
     
     private function delete()
     {
-        $return  = utf8_encode(ConstantesGenericasUtil::MSG_ERRO_TIPO_ROTA);
+        $return  = utf8_encode(ConstantsGenericsUtil::MSG_ERRO_TIPO_ROTA);
 
-        if(in_array($this->request['route'], ConstantesGenericasUtil::TIPO_DELETE,true))
+        if(in_array($this->request['route'], ConstantsGenericsUtil::TIPO_DELETE,true))
         {
            switch($this->request['route'])
            {
@@ -78,7 +78,7 @@ class RequestValidator
                     $return = $UserService->validateDelete();
                     break;
                 default:
-                    throw new InvalidArgumentException(ConstantesGenericasUtil::MSG_ERRO_RECURSO_INEXISTENTE);
+                    throw new InvalidArgumentException(ConstantsGenericsUtil::MSG_ERRO_RECURSO_INEXISTENTE);
            }
         }
         return $return;
@@ -86,9 +86,9 @@ class RequestValidator
 
     private function post()
     {
-        $return  = utf8_encode(ConstantesGenericasUtil::MSG_ERRO_TIPO_ROTA);
+        $return  = utf8_encode(ConstantsGenericsUtil::MSG_ERRO_TIPO_ROTA);
 
-        if(in_array($this->request['route'], ConstantesGenericasUtil::TIPO_POST,true))
+        if(in_array($this->request['route'], ConstantsGenericsUtil::TIPO_POST,true))
         {
            switch($this->request['route'])
            {
@@ -98,7 +98,7 @@ class RequestValidator
                     $return = $UserService->validatePost();
                     break;
                 default:
-                    throw new InvalidArgumentException(ConstantesGenericasUtil::MSG_ERRO_RECURSO_INEXISTENTE);
+                    throw new InvalidArgumentException(ConstantsGenericsUtil::MSG_ERRO_RECURSO_INEXISTENTE);
            }
         }
         return $return;

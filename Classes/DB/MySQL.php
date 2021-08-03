@@ -5,7 +5,7 @@ namespace DB;
 use InvalidArgumentException;
 use PDO;
 use PDOException;
-use Util\ConstantesGenericasUtil;
+use Util\ConstantsGenericsUtil;
 
 class MySQL
 {
@@ -48,12 +48,12 @@ class MySQL
             $stmt->execute();
             if ($stmt->rowCount() > 0) {
                 $this->db->commit();
-                return ConstantesGenericasUtil::MSG_DELETADO_SUCESSO;
+                return ConstantsGenericsUtil::MSG_DELETADO_SUCESSO;
             }
             $this->db->rollBack();
-            throw new InvalidArgumentException(ConstantesGenericasUtil::MSG_ERRO_SEM_RETORNO);
+            throw new InvalidArgumentException(ConstantsGenericsUtil::MSG_ERRO_SEM_RETORNO);
         }
-        throw new InvalidArgumentException(ConstantesGenericasUtil::MSG_ERRO_GENERICO);
+        throw new InvalidArgumentException(ConstantsGenericsUtil::MSG_ERRO_GENERICO);
     }
 
     /**
@@ -70,7 +70,7 @@ class MySQL
                 return $registros;
             }
         }
-        throw new InvalidArgumentException(ConstantesGenericasUtil::MSG_ERRO_SEM_RETORNO);
+        throw new InvalidArgumentException(ConstantsGenericsUtil::MSG_ERRO_SEM_RETORNO);
     }
 
     /**
@@ -89,10 +89,10 @@ class MySQL
             if ($totalRegistros === 1) {
                 return $stmt->fetch($this->db::FETCH_ASSOC);
             }
-            throw new InvalidArgumentException(ConstantesGenericasUtil::MSG_ERRO_SEM_RETORNO);
+            throw new InvalidArgumentException(ConstantsGenericsUtil::MSG_ERRO_SEM_RETORNO);
         }
 
-        throw new InvalidArgumentException(ConstantesGenericasUtil::MSG_ERRO_ID_OBRIGATORIO);
+        throw new InvalidArgumentException(ConstantsGenericsUtil::MSG_ERRO_ID_OBRIGATORIO);
     }
 
     /**

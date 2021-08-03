@@ -1,14 +1,14 @@
 <?php
 
 use Util\JsonUtil;
-use Util\RotasUtil;
+use Util\RoutesUtil;
 use Validator\RequestValidator;
 
 include 'bootstrap.php';
 
 try{
-    $req = new RequestValidator(RotasUtil::getRotas());
-    $retorno = $req->processarRequest();
+    $req = new RequestValidator(RoutesUtil::getRotas());
+    $retorno = $req->processRequest();
 
     $JsonUtil = new JsonUtil();
     $JsonUtil->processArray($retorno);

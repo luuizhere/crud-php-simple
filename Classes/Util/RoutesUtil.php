@@ -2,7 +2,7 @@
 
 namespace Util;
 
-class RotasUtil
+class RoutesUtil
 {
     public static function getRotas()
     {

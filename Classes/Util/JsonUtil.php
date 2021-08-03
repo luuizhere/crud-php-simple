@@ -14,7 +14,7 @@ class JsonUtil
             $postJson =  json_decode(file_get_contents('php://input'), true);
         }catch(JsonException $e)
         {
-            throw new InvalidArgumentException(ConstantesGenericasUtil::MSG_ERR0_JSON_VAZIO);
+            throw new InvalidArgumentException(ConstantsGenericsUtil::MSG_ERR0_JSON_VAZIO);
         }
 
         if(is_array($postJson) && count($postJson) > 0 )
@@ -27,12 +27,12 @@ class JsonUtil
     public function processArray($return)
     {
         $data = [];
-        $data[ConstantesGenericasUtil::TIPO] = ConstantesGenericasUtil::TIPO_ERRO;
+        $data[ConstantsGenericsUtil::TIPO] = ConstantsGenericsUtil::TIPO_ERRO;
 
         if(is_array($return) && count($return) > 0 || strlen($return) > 10)
         {
-            $data[ConstantesGenericasUtil::TIPO] = ConstantesGenericasUtil::TIPO_SUCESSO;
-            $data[ConstantesGenericasUtil::RESPOSTA] = $return;
+            $data[ConstantsGenericsUtil::TIPO] = ConstantsGenericsUtil::TIPO_SUCESSO;
+            $data[ConstantsGenericsUtil::RESPOSTA] = $return;
         }
         $this->toJson($data);
     }

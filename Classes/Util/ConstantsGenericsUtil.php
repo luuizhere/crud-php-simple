@@ -2,7 +2,7 @@
 
 namespace Util;
 
-abstract class ConstantesGenericasUtil
+abstract class ConstantsGenericsUtil
 {
     /* REQUESTS */
     public const TIPO_REQUEST = ['GET', 'POST', 'DELETE', 'PUT'];

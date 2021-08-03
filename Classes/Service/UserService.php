@@ -4,7 +4,7 @@ namespace Service;
 
 use InvalidArgumentException;
 use Repository\UserRepository;
-use Util\ConstantesGenericasUtil;
+use Util\ConstantsGenericsUtil;
 
 class UserService
 {
@@ -34,12 +34,12 @@ class UserService
             $return = $this->datas['id'] > 0 ? $this->getOneByKey() : $this->$resource();
         }else
         {
-            throw new InvalidArgumentException(ConstantesGenericasUtil::MSG_ERRO_RECURSO_INEXISTENTE);
+            throw new InvalidArgumentException(ConstantsGenericsUtil::MSG_ERRO_RECURSO_INEXISTENTE);
         }
 
         if($return === null)
         {
-            throw new InvalidArgumentException(ConstantesGenericasUtil::MSG_ERRO_GENERICO);
+            throw new InvalidArgumentException(ConstantsGenericsUtil::MSG_ERRO_GENERICO);
         }
 
         return $return;
@@ -57,16 +57,16 @@ class UserService
                 $return = $this->$resource();
             }else
             {
-                throw new InvalidArgumentException(ConstantesGenericasUtil::MSG_ERRO_ID_OBRIGATORIO);
+                throw new InvalidArgumentException(ConstantsGenericsUtil::MSG_ERRO_ID_OBRIGATORIO);
             }
         }else
         {
-            throw new InvalidArgumentException(ConstantesGenericasUtil::MSG_ERRO_RECURSO_INEXISTENTE);
+            throw new InvalidArgumentException(ConstantsGenericsUtil::MSG_ERRO_RECURSO_INEXISTENTE);
         }
 
         if($return === null)
         {
-            throw new InvalidArgumentException(ConstantesGenericasUtil::MSG_ERRO_GENERICO);
+            throw new InvalidArgumentException(ConstantsGenericsUtil::MSG_ERRO_GENERICO);
         }
 
         return $return;
@@ -81,12 +81,12 @@ class UserService
            $return = $this->$resource();
         }else
         {
-            throw new InvalidArgumentException(ConstantesGenericasUtil::MSG_ERRO_RECURSO_INEXISTENTE);
+            throw new InvalidArgumentException(ConstantsGenericsUtil::MSG_ERRO_RECURSO_INEXISTENTE);
         }
 
         if($return === null)
         {
-            throw new InvalidArgumentException(ConstantesGenericasUtil::MSG_ERRO_GENERICO);
+            throw new InvalidArgumentException(ConstantsGenericsUtil::MSG_ERRO_GENERICO);
         }
 
         return $return;
@@ -117,7 +117,7 @@ class UserService
 
         if ($name && $address) {
             if ($this->UserRepository->getRegisterByName($name) > 0) {
-                throw new InvalidArgumentException(ConstantesGenericasUtil::MSG_ERRO_LOGIN_EXISTENTE);
+                throw new InvalidArgumentException(ConstantsGenericsUtil::MSG_ERRO_LOGIN_EXISTENTE);
             }
 
             if ($this->UserRepository->insertUser($name, $address) > 0) {
@@ -128,9 +128,9 @@ class UserService
 
             $this->UsuariosRepository->getMySQL()->getDb()->rollBack();
 
-            throw new InvalidArgumentException(ConstantesGenericasUtil::MSG_ERRO_GENERICO);
+            throw new InvalidArgumentException(ConstantsGenericsUtil::MSG_ERRO_GENERICO);
         }
-        throw new InvalidArgumentException(ConstantesGenericasUtil::MSG_ERRO_LOGIN_SENHA_OBRIGATORIO);
+        throw new InvalidArgumentException(ConstantsGenericsUtil::MSG_ERRO_LOGIN_SENHA_OBRIGATORIO);
 
     }
 
