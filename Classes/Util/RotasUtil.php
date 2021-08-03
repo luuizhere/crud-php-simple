@@ -12,8 +12,6 @@ class RotasUtil
         $request['recurso'] = $urls[1] ?? null;
         $request['id'] = $urls[2] ?? null;
         $request['metodo'] = $_SERVER['REQUEST_METHOD'];
-
-        var_dump($request);
         return $request;
     }
 
